@@ -3,7 +3,7 @@
 ;; Author: Artur Yaroshenko <artawower@protonmail.com>
 ;; URL: https://github.com/Artawower/orgnote.el
 ;; Package-Requires: ((emacs "27.1"))
-;; Version: 0.10.4
+;; Version: 0.12.0
 ;; Copyright (C) 2023 Artur Yaroshenko
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -50,7 +50,7 @@
 (defconst orgnote--orgnote-log-buffer "*Orgnote. Org Note log*"
   "The name of Org Note buffer that run in background.")
 
-(defconst orgnote--available-commands '("publish" "publish-all" "load" "sync")
+(defconst orgnote--available-commands '("publish" "publish-all" "load" "sync" "repair")
   "Available commands for Org Note.")
 
 (defconst orgnote-enable-roam-sync-p nil
@@ -180,6 +180,11 @@ Node js 14+ version is required."
   "Publish all files to Org Note service."
   (interactive)
   (orgnote--execute-command "publish-all"))
+
+(defun orgnote-repair ()
+  "Repair accidentally encrypted local files."
+  (interactive)
+  (orgnote--execute-command "repair"))
 
 ;;;###autoload
 (defun orgnote-load ()
