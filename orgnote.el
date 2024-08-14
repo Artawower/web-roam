@@ -3,7 +3,7 @@
 ;; Author: Artur Yaroshenko <artawower@protonmail.com>
 ;; URL: https://github.com/Artawower/orgnote.el
 ;; Package-Requires: ((emacs "27.1"))
-;; Version: 0.12.0
+;; Version: 0.13.0
 ;; Copyright (C) 2023 Artur Yaroshenko
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -203,6 +203,20 @@ Node js 14+ version is required."
   "Force sync all files with Org Note service."
   (interactive)
   (orgnote--execute-command "sync" "--force" #'orgnote--after-receive-notes))
+
+;;;###autoload
+(defun orgnote-open-configuration ()
+  "Edit configuration file for Org Note."
+  (interactive)
+  (find-file orgnote-configuration-file-path))
+
+;;;###autoload
+(defun orgnote-open-cache-store ()
+  "Open cache store for Org Note."
+  (interactive)
+  (let* ((config (orgnote--read-configurations "reading configuration"))
+         (account-name (gethash "name" config)))
+    (find-file (format "~/.config/orgnote/store-%s.json" account-name))))
 
 ;;;###autoload
 (define-minor-mode orgnote-sync-mode
